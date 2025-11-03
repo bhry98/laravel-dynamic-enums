@@ -1,0 +1,29 @@
+{
+  "name": "bhry98/laravel-dynamic-enums",
+  "description": "Dynamic Enums to manage option from admin panel",
+  "type": "library",
+  "require": {
+    "laravel/framework": "v12.1.0"
+  },
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Bhry98\\LaravelDynamicEnums\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Abdelrahman Bghdady",
+      "email": "bhrabdelrahman8@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Bhry98\\LaravelDynamicEnums\\Providers\\DynamicEnumsServiceProvider"
+      ]
+    },
+    "minimum-stability": "stable"
+  }
+}
