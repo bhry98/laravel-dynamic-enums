@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->string('icon')->nullable();
             $table->string('color')->default('#808080');
             $table->integer('ordering')->default(1);
+            $table->boolean('active')->default(true);
             $table->foreignId('parent_id')->nullable()->references('id')->on((new EnumsModel)->getTable())->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestampsTz();
             $table->softDeletesTz();

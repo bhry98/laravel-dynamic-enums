@@ -23,9 +23,11 @@ class EnumsModel extends Model
         'color',
         'ordering',
         'parent_id',
+        'active',
     ];
     protected $casts = [
         'ordering' => 'integer',
+        'active' => 'boolean',
     ];
 
     public function name(): HasOne
@@ -40,6 +42,7 @@ class EnumsModel extends Model
     public function parent(): HasOne
     {
         return $this->hasOne(self::class, 'id', 'parent_id')
+            ->where('group', $this->getAttribute('group'))
             ->with(["name", "description"]);
     }
 
@@ -56,6 +59,15 @@ class EnumsModel extends Model
     {
         self::creating(function ($model) {
             $model->code = self::createUniqueCode();
+            $model->ordering = $model->ordering ?? self::query()->where('group', $model->group)->max('ordering') + 1;
+//            dd(
+//                $model->icon,
+//            );
+//            dd(
+//                $model->ordering,
+//                self::query()->where('group', $model->group)->max('ordering') + 1,
+//                self::query()->where('group', $model->group)->max('ordering')
+//            );
         });
 //        static::addGlobalScope('locales', function (Builder $builder) {
 //            $builder->with(["name", "description"]);

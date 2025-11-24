@@ -6,7 +6,8 @@ use Bhry98\LaravelDynamicEnums\Models\EnumsModel;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static EnumsModel create(string $group, string $defaultName, ?string $defaultDescription = null, ?string $icon = null, ?string $color = null, ?int $ordering = 1, ?int $parent_id = null, ?array $nameLocales = [], ?array $descriptionLocales = [])
+ * @method static EnumsModel create(string $group, string $defaultName, ?string $defaultDescription = null, ?string $icon = null, ?string $color = null, ?int $ordering = 1, ?int $parent_id = null, ?array $nameLocales = [], ?array $descriptionLocales = [], ?bool $active = true)
+ * @method static EnumsModel update(EnumsModel $enumRecord, string $group, string $defaultName, ?string $defaultDescription = null, ?string $icon = null, ?string $color = null, ?int $ordering = 1, ?int $parent_id = null, ?array $nameLocales = [], ?array $descriptionLocales = [], ?bool $active = true)
  * @method static array get(string $group, ?string $locale = null)
  * @method static void clearCache(?string $group = null)
  */

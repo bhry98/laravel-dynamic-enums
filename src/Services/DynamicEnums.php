@@ -26,10 +26,11 @@ class DynamicEnums
         ?string $defaultDescription = null,
         ?string $icon = null,
         ?string $color = null,
-        ?int    $ordering = 1,
+        ?int    $ordering = null,
         ?int    $parent_id = null,
         ?array  $nameLocales = [],
         ?array  $descriptionLocales = [],
+        ?bool   $active = true
     ): EnumsModel
     {
         try {
@@ -42,6 +43,7 @@ class DynamicEnums
                     'color' => $color ?? config('bhry98-dynamic-enums.enum_color', "#808080"),
                     'ordering' => $ordering,
                     'parent_id' => $parent_id,
+                    'active' => $active,
                 ]);
             if (!$enumRecord) throw new Exception('Cant Create Dynamic Enum Record');
             if ($nameLocales) {
@@ -62,6 +64,69 @@ class DynamicEnums
                         'lang' => $descriptionLangKey,
                         'value' => $descriptionValue,
                     ]);
+                }
+            }
+            return $enumRecord->refresh();
+        } catch (\Exception $exception) {
+            dd($exception);
+            throw new $exception;
+        }
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function update(
+        EnumsModel $enumRecord,
+        string     $group,
+        string     $defaultName,
+        ?string    $defaultDescription = null,
+        ?string    $icon = null,
+        ?string    $color = null,
+        ?int       $ordering = null,
+        ?int       $parent_id = null,
+        ?array     $nameLocales = [],
+        ?array     $descriptionLocales = [],
+        ?bool      $active = true
+    ): EnumsModel
+    {
+        try {
+            $enumRecord->update([
+                'group' => $group,
+                'default_name' => $defaultName,
+                'default_description' => $defaultDescription,
+                'icon' => $icon,
+                'color' => $color ?? config('bhry98-dynamic-enums.enum_color', "#808080"),
+                'ordering' => $ordering,
+                'parent_id' => $parent_id,
+                'active' => $active,
+            ]);
+            if ($nameLocales) {
+                foreach ($nameLocales as $nameLangKey => $nameValue) {
+                    EnumsLocalizationsModel::query()->updateOrCreate(
+                        [
+                            'enum_id' => $enumRecord->id,
+                            'key' => "name",
+                            'lang' => $nameLangKey,
+                        ],
+                        [
+                            'value' => $nameValue,
+                        ]
+                    );
+                }
+            }
+            if ($descriptionLocales) {
+                foreach ($descriptionLocales as $descriptionLangKey => $descriptionValue) {
+                    EnumsLocalizationsModel::query()->updateOrCreate(
+                        [
+                            'enum_id' => $enumRecord->id,
+                            'key' => "description",
+                            'lang' => $descriptionLangKey,
+                        ],
+                        [
+                            'value' => $descriptionValue,
+                        ]
+                    );
                 }
             }
             return $enumRecord->refresh();
