@@ -13,7 +13,7 @@ return [
      * add your type enum class to manage all enums in all system
      */
     "type_enum" => Bhry98\LaravelDynamicEnums\Enums\DynamicEnumTypes::class,
-
+//    "enum_class" => Bhry98\LaravelDynamicEnums\Enums\DynamicEnumTypes::class,
     /**
      * add your default color for enum record
      */

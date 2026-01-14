@@ -55,24 +55,24 @@ class EnumsModel extends Model
             ]);
     }
 
-    protected static function booting(): void
-    {
-        self::creating(function ($model) {
-            $model->code = self::createUniqueCode();
-            $model->ordering = $model->ordering ?? self::query()->where('group', $model->group)->max('ordering') + 1;
-//            dd(
-//                $model->icon,
-//            );
-//            dd(
-//                $model->ordering,
-//                self::query()->where('group', $model->group)->max('ordering') + 1,
-//                self::query()->where('group', $model->group)->max('ordering')
-//            );
-        });
-//        static::addGlobalScope('locales', function (Builder $builder) {
-//            $builder->with(["name", "description"]);
+//    protected static function booting(): void
+//    {
+//        self::creating(function ($model) {
+//            $model->code = self::createUniqueCode();
+//            $model->ordering = $model->ordering ?? self::query()->where('group', $model->group)->max('ordering') + 1;
+////            dd(
+////                $model->icon,
+////            );
+////            dd(
+////                $model->ordering,
+////                self::query()->where('group', $model->group)->max('ordering') + 1,
+////                self::query()->where('group', $model->group)->max('ordering')
+////            );
 //        });
-    }
+////        static::addGlobalScope('locales', function (Builder $builder) {
+////            $builder->with(["name", "description"]);
+////        });
+//    }
 
 //    protected function locales(Builder $query): void
 //    {
